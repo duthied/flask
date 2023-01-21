@@ -53,4 +53,4 @@ def delete_movie(index):
     movies.pop(index)
     return 'None', 200
 
-app.run()
+app.run(host="localhost", port=8080, debug=True)
