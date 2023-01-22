@@ -1,0 +1,21 @@
+# swagger.yml
+
+openapi: 3.0.0
+info:
+  title: "Movie Flask REST API"
+  description: "An API about movies"
+  version: "1.0.0"
+
+servers:
+  - url: "/api"
+
+paths:
+  /movies:
+    get:
+      operationId: "movies.read_all"
+      tags:
+        - "Movies"
+      summary: "Read the list of movies"
+      responses:
+        "200":
+          description: "Successfully read the movie list"
