@@ -9,13 +9,44 @@ info:
 servers:
   - url: "/api"
 
+components:
+  schemas:
+    Movie:
+      type: "object"
+      required:
+        - name
+        - cast
+      properties:
+        name:
+          type: "string"
+        cast:
+          type: "array"
+        genres:
+          type: "array"
+
 paths:
   /movies:
     get:
       operationId: "movies.read_all"
       tags:
-        - "Movies"
+        - Movies
       summary: "Read the list of movies"
       responses:
         "200":
           description: "Successfully read the movie list"
+    post:
+      operationId: "movies.create"
+      tags:
+        - Movies
+      summary: "Create a movie"
+      requestBody:
+          description: "Movie to create"
+          required: True
+          content:
+            application/json:
+              schema:
+                x-body-name: "movie"
+                $ref: "#/components/schemas/Movie"
+      responses:
+        "201":
+          description: "Successfully created movie"

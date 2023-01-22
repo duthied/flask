@@ -1,6 +1,7 @@
 # movies.py
 
 from datetime import datetime
+from flask import abort
 
 def get_timestamp():
     return datetime.now().strftime(("%Y-%m-%d %H:%M:%S"))
@@ -40,3 +41,23 @@ MOVIES = {
 
 def read_all():
   return list(MOVIES.values())
+
+def create(movie):
+  name = movie.get("name")
+  cast = movie.get("cast")
+  genres = movie.get("genres")
+  
+  if name not in MOVIES:
+    MOVIES[name] = {
+      "name": name,
+      "cast": cast,
+      "genres": genres,
+      "timestamp": get_timestamp(),
+    }
+    return MOVIES[name], 201
+  else:
+    abort(
+      406,
+      f"There is a movie with {name} already exists"
+    )
+
