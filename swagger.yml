@@ -23,6 +23,14 @@ components:
           type: "array"
         genres:
           type: "array"
+  parameters:
+    name:
+      name: "name"
+      description: "The movie name to lookup"
+      in: path
+      required: True
+      schema:
+        type: "string"
 
 paths:
   /movies:
@@ -50,3 +58,14 @@ paths:
       responses:
         "201":
           description: "Successfully created movie"
+  /movies/{name}:
+    get:
+      operationId: "movies.read_one"
+      tags:
+        - Movies
+      summary: "Read one movie"
+      parameters:
+        - $ref: "#/components/parameters/name"
+      responses:
+        "200":
+          description: "Successfully read movie"

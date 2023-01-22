@@ -61,3 +61,11 @@ def create(movie):
       f"There is a movie with {name} already exists"
     )
 
+def read_one(name):
+  if name in MOVIES:
+    return MOVIES[name]
+  else:
+    abort(
+        404, f"Movie with name {name} not found"
+    )
+    
