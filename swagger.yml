@@ -2,8 +2,8 @@
 
 openapi: 3.0.0
 info:
-  title: "Movie Flask REST API"
-  description: "An API about movies"
+  title: "Coffee Flask REST API"
+  description: "An API about coffee"
   version: "1.0.0"
 
 servers:
@@ -11,61 +11,72 @@ servers:
 
 components:
   schemas:
-    Movie:
+    Coffee:
       type: "object"
       required:
         - name
-        - cast
+        - roaster
+        - origin
+        - variety
+        - process
       properties:
         name:
           type: "string"
-        cast:
+        roaster:
+          type: "string"
+        origin:
           type: "array"
-        genres:
+        variety:
+          type: "array"
+        process:
+          type: "array"
+        altitude:
+          type: "string"
+        tasting:
           type: "array"
   parameters:
     name:
       name: "name"
-      description: "The movie name to lookup"
+      description: "The coffee name to lookup"
       in: path
       required: True
       schema:
         type: "string"
 
 paths:
-  /movies:
+  /coffees:
     get:
-      operationId: "movies.read_all"
+      operationId: "coffees.read_all"
       tags:
-        - Movies
-      summary: "Read the list of movies"
+        - Coffees
+      summary: "Read the list of coffee"
       responses:
         "200":
-          description: "Successfully read the movie list"
+          description: "Successfully read the coffee list"
     post:
-      operationId: "movies.create"
+      operationId: "coffees.create"
       tags:
-        - Movies
-      summary: "Create a movie"
+        - Coffees
+      summary: "Create a coffee"
       requestBody:
-          description: "Movie to create"
+          description: "coffee to create"
           required: True
           content:
             application/json:
               schema:
-                x-body-name: "movie"
-                $ref: "#/components/schemas/Movie"
+                x-body-name: "coffee"
+                $ref: "#/components/schemas/Coffee"
       responses:
         "201":
-          description: "Successfully created movie"
-  /movies/{name}:
+          description: "Successfully created coffee"
+  /coffees/{name}:
     get:
-      operationId: "movies.read_one"
+      operationId: "coffees.read_one"
       tags:
-        - Movies
-      summary: "Read one movie"
+        - Coffees
+      summary: "Read one coffee"
       parameters:
         - $ref: "#/components/parameters/name"
       responses:
         "200":
-          description: "Successfully read movie"
+          description: "Successfully read coffee"
