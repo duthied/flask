@@ -80,3 +80,29 @@ paths:
       responses:
         "200":
           description: "Successfully read coffee"
+    put:
+      tags:
+        - Coffees
+      operationId: "coffees.update"
+      summary: "Update a coffee"
+      parameters:
+        - $ref: "#/components/parameters/name"
+      responses:
+        "200":
+          description: "Successfully updated coffee"
+      requestBody:
+        content:
+          application/json:
+            schema:
+              x-body-name: "coffee"
+              $ref: "#/components/schemas/Coffee"
+    delete:
+      tags:
+        - Coffees
+      operationId: "coffees.delete"
+      summary: "Delete a coffee"
+      parameters:
+        - $ref: "#/components/parameters/name"
+      responses:
+        "204":
+          description: "Successfully deleted coffee"

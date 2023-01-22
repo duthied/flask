@@ -1,23 +1,10 @@
-# movies.py
+# coffees.py
 
 from datetime import datetime
-from flask import abort
+from flask import abort, make_response
 
 def get_timestamp():
     return datetime.now().strftime(("%Y-%m-%d %H:%M:%S"))
-
-# name:
-#   type: "string"
-# roaster:
-#   type: "string"
-# origin:
-#   type: "array"
-# variety:
-#   type: "array"
-# process:
-#   type: "array"
-# altitude:
-#   type: "string"
 
 COFFEES = {
   "Don Cayito": {
@@ -86,5 +73,34 @@ def read_one(name):
   else:
     abort(
         404, f"A coffee with the name {name} not found"
+    )
+
+def update(name, coffee):
+  if name in COFFEES:
+    COFFEES[name]["name"] = coffee.get("name", COFFEES[name]["name"])
+    COFFEES[name]["origin"] = coffee.get("origin", COFFEES[name]["origin"])
+    COFFEES[name]["variety"] = coffee.get("variety", COFFEES[name]["variety"])
+    COFFEES[name]["roaster"] = coffee.get("roaster", COFFEES[name]["roaster"])
+    COFFEES[name]["process"] = coffee.get("process", COFFEES[name]["process"])
+    COFFEES[name]["altitude"] = coffee.get("altitude", COFFEES[name]["altitude"])
+    COFFEES[name]["tasting"] = coffee.get("tasting", COFFEES[name]["tasting"])
+    COFFEES[name]["timestamp"] = get_timestamp()
+    return COFFEES[name]
+  else:
+    abort(
+      404,
+      f"A coffee with last name {name} not found"
+    )
+
+def delete(name):
+  if name in COFFEES:
+    del COFFEES[name]
+    return make_response(
+      f"{name} successfully deleted", 200
+    )
+  else:
+    abort(
+      404,
+      f"Coffee with last name {name} not found"
     )
     
